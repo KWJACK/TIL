@@ -12,7 +12,7 @@ FLOW
 
 ### 새 내용 업데이트 하기
 
-> 1.	\**git add 파일 이름 or git add *\*\*
+> 1.	git add 파일 이름 or git add \*
 > 2.	**git commit -m "설명 메시지"**
 > 3.	**git push origin master**
 
