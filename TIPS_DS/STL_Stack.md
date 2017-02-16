@@ -152,4 +152,61 @@ int main() {
 }
 ```
 
-출력 결과
+#### 출력 결과
+
+![Result](https://cloud.githubusercontent.com/assets/20148930/23029052/9c9f58dc-f4ac-11e6-8575-3d57be95224c.jpg)
+
+Stack 기능 확장해보기
+---------------------
+
+-	너무 단순한데? stack의 내용물을 스왑해볼까?
+-	컨테이너를 재정의 해봅시다.
+
+```
+#include <stack>
+#include <iterator>
+template <typename T, typename Container = std::deque<T>>
+class stack_ex : public std::stack<T, Container>    // STL_Stack을 상속해 stack_ex 정의
+{
+private:
+public:
+  using stack_ex::stack::container_type;
+  void swap_top() {  //top에 인접 노드를 swap하는 부분
+                   //c는 stack을 이루는 container. (<stack>에 선언)
+      auto last = c.end();    //c에서 end이므로 가장 최근에 들어간 부분(top)
+      auto start = c.begin(); //c에서 begin이므로 stack에 가장 처음 들어간 부분
+      auto before_last = std::prev(last,2); //top에서 두 칸 떨어진 애의 prev -> top 이전 노드
+      std::iter_swap(start, before_last);   //iter_swap을 이용해 swap
+  }
+};
+```
+
+> ### 실행 예제 코드
+
+```
+stack_ex<int> exStack;
+    for (int i = 0; i < 6; i++) {
+        exStack.push(i +1);
+    }
+    exStack.swap_top();
+    cout << endl;
+    for (int i = 0; i < 6; i++) {
+        cout << exStack.top()<< "\t";
+        exStack.pop();
+    }
+    cout << endl;
+```
+
+#### 출력 결과
+
+**6 1 4 3 2 5**
+
+---
+
+### *왜 이렇게 됬을까?*
+
+6 (5) 4 3 2 (1) -> **6 1 4 3 2 5**
+
+iter_swap에서 before_last(5), start(1) 이기 때문.
+
+container_type으로 받았기 때문에 **stack의 start가 top부분이라고 착각**할 수 있으니 주의한다.
