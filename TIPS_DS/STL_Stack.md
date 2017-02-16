@@ -90,7 +90,7 @@ public:
 본격 STL_Stack 소개
 -------------------
 
-(STL은 standard library의 약자)
+(STL은 Standard Template Library의 약자)
 
 -	템플릿Template 문법이 적용되어 자료형이나, 클래스를 사용자 정의에 따라 제약없이 사용할 수 있다.
 -	Stack은 컨테이너 어뎁터의 한 종류(STL 컨테이너 어뎁터는 stack, queue, priority_queue가 있다)
@@ -135,7 +135,7 @@ int main() {
     stack<pair<int, int>> stlStackPair;
     cout << " Stack에 해당 순서로 삽입 합니다." << endl;
     for (int i = 0; i < 6; i++) {
-        cout << myStack.puch(new NODE(i * 5)) << "\t";      
+        cout << myStack.push(new NODE(i * 5)) << "\t";      
         stlStackPair.push(make_pair(i * 5, i * 3));
     }
     cout <<"\n Linked_List Stack 출력입니다."<< endl;
