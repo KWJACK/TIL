@@ -1,6 +1,10 @@
 STL_Set
 =======
 
+set은 데이터 중복없이, 빠르게 정렬하고자 할 때 쓰는 컨테이너이다.
+
+접근은 iterator를 통해 가능하고, reverse_iterator를 활용해 rbegin, rend도 사용가능하다.
+
 ```
 #include <set>
 #include <stdio.h>
