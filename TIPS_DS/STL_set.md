@@ -1,16 +1,19 @@
 STL_Set
 =======
 
-set은 데이터 중복없이, 빠르게 정렬하고자 할 때 쓰는 컨테이너이다.
+set은 데이터 중복없이, 빠르게 정렬(정렬되있으니 __검색도 유리__)하고자 할 때 쓰는 컨테이너이다. ( Default 정렬은 비교 클래스인 less()이다. )
+
+내부 구조는 [Black_Red Tree](https://github.com/KWJACK/TIL/blob/master/TIPS_DS/Red_Black_Tree.md)로 구성되어 있다. 트리이므로 자료 검색의 복잡도는 O(lgN)이다.
 
 접근은 iterator를 통해 가능하고, reverse_iterator를 활용해 rbegin, rend도 사용가능하다.
 
+set 클래스에서 제공하는 멤버함수를 다음 예를 통해 살펴본다.
 ```
+// http://newms.tistory.com/39 의 자료를 가져왔습니다.
 #include <set>
 #include <stdio.h>
 
 using namespace std;
-
 void main()
 {
     set<int> iSet;
@@ -50,3 +53,73 @@ void main()
     printf("\n");
 }
 ```
+실행 결과
+-----
+
+![setResult](https://cloud.githubusercontent.com/assets/20148930/23121360/64a95e56-f7a3-11e6-9abc-76ad497e1ea6.jpg)
+
+
+Set의 확장
+=====
+#### (Ref. std::set cpluscplus)
+- Default는 오름차순인데 내림차순으로 쓰고 싶다거나
+- 기본타입(int, double ,...)이 아닌 사용자타입에 대해 set을 적용하는 방법에 대해 살펴 본다.
+
+```
+#include <set>
+#include <iostream>
+#include <functional>
+
+bool fncomp(int lhs, int rhs) { return lhs > rhs; } //기존 set의 오름차순을 -> 내림 차순 정렬로 변경
+
+class classcomp {					//struct으로 선언해도 된다.
+public:								//private이면 에러
+  bool operator() (const int& lhs, const int& rhs) const
+  {
+    return lhs > rhs;			//기존 set의 오름차순을 -> 내림 차순 정렬로 변경
+  }
+};
+
+int main() {
+
+	std::set<int> first;                           // empty set of ints
+
+	int myints[] = { 10,20,30,40,50 };
+	std::set<int> second(myints, myints + 5);        // range
+
+	std::set<int> third(second);                         // a copy of second
+	std::set<int> fourth(second.begin(), second.end());  // iterator ctor.
+
+	//클래스를 이용해 선언하는 방법
+	std::set<int, classcomp> fifth;                 
+	for(int i=1;i<=5;i++)
+		fifth.insert(10*i);
+
+	//함수 포인터로 선언하는 방법
+	bool(*fn_pt)(int, int) = fncomp;
+	std::set<int, bool(*)(int, int)> sixth(fn_pt);   
+	for (int i = 1; i<=5; i++)
+		sixth.insert(10*i);
+
+	//for each 출력방법
+	for (auto& a : second) {
+		std::cout<< a<<" ";
+	}
+	std::cout << "\n";
+
+	//iterator를 이용한 출력
+	std::set<int>::iterator set_it = fifth.begin();
+	for(;set_it != fifth.end();set_it++)
+		std::cout << *set_it << " ";
+	std::cout << "\n";
+
+	//간단하게 내림차순은 비교연산자 클래스 greater(오름차순)로 가능하다(...)
+	//less랑 greater의 의미는 최상위 index를 less냐 greater냐 하는 관점
+	std::set<int, std::greater<int> > seventh; //greater는 functional에서 제공
+
+	return 0;
+}
+```
+
+##### 여기까지, set에 대해 알아보았다. set의 확장형인,
+##### [multiset]()에서는 equal_range(), lower_bound(), upper_bound()에 대해 살펴본다.
