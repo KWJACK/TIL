@@ -7,16 +7,16 @@ using namespace std;
 int main() {
 	/*mStack myStack;
 	stack<pair<int, int>> stlStackPair;
-	cout << " Stack¿¡ ÇØ´ç ¼ø¼­·Î »ðÀÔ ÇÕ´Ï´Ù." << endl;
+	cout << " Stackì— í•´ë‹¹ ìˆœì„œë¡œ ì‚½ìž… í•©ë‹ˆë‹¤." << endl;
 	for (int i = 0; i < 6; i++) {
-	cout << myStack.puch(new NODE(i * 5)) << "\t";
+	cout << myStack.push(new NODE(i * 5)) << "\t";
 	stlStackPair.push(make_pair(i * 5, i * 3));
 	}
-	cout <<"\n Linked_List Stack Ãâ·ÂÀÔ´Ï´Ù."<< endl;
+	cout <<"\n Linked_List Stack ì¶œë ¥ìž…ë‹ˆë‹¤."<< endl;
 	for (int i = 0; i < 6; i++) {
 	cout << myStack.pop() << "\t";
 	}
-	cout <<"\n Pair Ãâ·Â ÀÔ´Ï´Ù."<<endl;
+	cout <<"\n Pair ì¶œë ¥ ìž…ë‹ˆë‹¤."<<endl;
 	for (int i = 0; i < 6; i++) {
 	cout <<"\""<< stlStackPair.top().first << "," << stlStackPair.top().second << "\"" << "\t";
 	stlStackPair.pop();
