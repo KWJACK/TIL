@@ -1,7 +1,9 @@
-STL_Set
+__STL_Set__
 =======
 
-set은 데이터 중복없이, 빠르게 정렬(정렬되있으니 __검색도 유리__)하고자 할 때 쓰는 컨테이너이다. ( Default 정렬은 비교 클래스인 less()이다. )
+set은 데이터 중복없이, 빠르게 정렬(정렬되있으니 __검색도 유리__)하고자 할 때 쓰는 컨테이너이다.
+
+ ( Default 정렬은 비교 클래스인 less()가 설정되있다. )
 
 내부 구조는 [Black_Red Tree](https://github.com/KWJACK/TIL/blob/master/TIPS_DS/Red_Black_Tree.md)로 구성되어 있다. 트리이므로 자료 검색의 복잡도는 O(lgN)이다.
 
@@ -121,5 +123,5 @@ int main() {
 }
 ```
 
-##### 여기까지, set에 대해 알아보았다. set의 확장형인,
-##### [multiset]()에서는 equal_range(), lower_bound(), upper_bound()에 대해 살펴본다.
+##### 여기까지, set에 대해 알아보았다.
+set의 확장형인, [multiset]()에서는 equal_range(), lower_bound(), upper_bound()에 대해 살펴본다.
