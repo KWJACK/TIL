@@ -122,6 +122,60 @@ int main() {
 	return 0;
 }
 ```
+__당연한 말이지만 <=나 >=로 연산자를 설정하면 에러가 난다 ...__
 
-##### 여기까지, set에 대해 알아보았다.
+
+## Set을 사용자 타입으로 생성
+```
+// ... 헤더 생략
+struct TIPS {
+	int order;     //member variables
+	int age;
+	double score;
+
+	TIPS(int o, int e, double s) : order(o), age(e),score(s) {}  //constructor
+
+	bool operator<(const TIPS& rhs) const {
+		return this->order < rhs.order;    //first condition  (less)
+	}
+
+	bool operator==(const TIPS& rhs) const {
+		return this->age == rhs.age;       //second condition
+	}
+
+	friend std::ostream& operator<<(std::ostream& os, const TIPS& obj) {
+		os << obj.order << " :: " << obj.age << " :: " << obj.score;
+		return os;                        //출력용
+	}
+};
+
+struct orderLess{
+	bool operator()(const TIPS& lhs, const TIPS& rhs) const
+	{		
+		return (lhs < rhs) && !(lhs == rhs);  //set정렬에 쓰일 규칙을 재정의합니다.
+	}
+};
+
+
+int main() {
+	std::set<TIPS, orderLess> s;     //class +
+	for (int i = 0; i < 5; ++i) {
+		s.insert(TIPS(15 - i, i, (double)i / 10 * 3));
+	}
+	for (int i = 0; i < 10; i++) {
+		s.insert(TIPS(16 + i, i, (double)i / 10 * 5));
+	}
+	std::cout << "order::age::score" << std::endl;
+	std::copy(s.begin(), s.end(), std::ostream_iterator<TIPS>(std::cout, "\n"));
+    //copy() by <algorithm>
+    //copy는 시작부터 끝(개구간) 범위를 복사해 세번째 인자로 넘겨준다.
+    //ostream_iterator를 이용해 반복자로 각 element 출력
+	return 0;
+```
+## 실행결과
+
+![setResult](https://cloud.githubusercontent.com/assets/20148930/23192247/c1682936-f8e5-11e6-9184-fb16951933d3.jpg)
+16에서 age가 0으로 조건에 맞지 않아 set에 삽입되지 않았다.
+
+#### 여기까지, set에 대해 알아보았다.
 set의 확장형인, [multiset]()에서는 equal_range(), lower_bound(), upper_bound()에 대해 살펴본다.
