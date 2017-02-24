@@ -137,11 +137,7 @@ struct TIPS {
 
 	bool operator<(const TIPS& rhs) const {
 		return this->order < rhs.order;    //first condition  (less)
-	}
-
-	bool operator==(const TIPS& rhs) const {
-		return this->age == rhs.age;       //second condition
-	}
+	}  
 
 	friend std::ostream& operator<<(std::ostream& os, const TIPS& obj) {
 		os << obj.order << " :: " << obj.age << " :: " << obj.score;
@@ -152,7 +148,7 @@ struct TIPS {
 struct orderLess{
 	bool operator()(const TIPS& lhs, const TIPS& rhs) const
 	{		
-		return (lhs < rhs) && !(lhs == rhs);  //set정렬에 쓰일 규칙을 재정의합니다.
+		return (lhs < rhs);  //set정렬에 쓰일 규칙을 재정의합니다.
 	}
 };
 
@@ -172,10 +168,15 @@ int main() {
     //ostream_iterator를 이용해 반복자로 각 element 출력
 	return 0;
 ```
-## 실행결과
+### 주의사항
 
-![setResult](https://cloud.githubusercontent.com/assets/20148930/23192247/c1682936-f8e5-11e6-9184-fb16951933d3.jpg)
-16에서 age가 0으로 조건에 맞지 않아 set에 삽입되지 않았다.
+비교조건에 opertor == 을사용하지 않도록 한다. set의 기본 형태를 위반하기도 하고
+set에서 find할 시 operator== 이 사용되기 때문
+ex)
+bool operator==(const TIPS& rhs) const {  
+     return this->age == rhs.age;
+}
+---
 
 #### 여기까지, set에 대해 알아보았다.
 set의 확장형인, [multiset]()에서는 equal_range(), lower_bound(), upper_bound()에 대해 살펴본다.
