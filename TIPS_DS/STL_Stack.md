@@ -38,7 +38,7 @@ Stack by Linked-List
 
 #### STACK 구현
 
-스택은 First In Last Out(FILO)의 구조를 갖는다.
+스택은 Last In First Out(LIFO)의 구조를 갖는다.
 
 > | 멤버변수      | 멤버함수                                      |
 > |:-------------:|:----------------------------------------------|
