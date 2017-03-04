@@ -1,5 +1,12 @@
 Git 새 저장소 만들기
 ====================
+### 로컬에 git 아이디 추가하기
+
+```
+git config --global user.email "your@example.com"
+git config --global user.name "Your name"
+```
+ 아이디를 추가함으로써 협업시 누가 수정했는지 어디서 작업했는지 구분 가능
 
 ### 새 저장소 만들기
 
