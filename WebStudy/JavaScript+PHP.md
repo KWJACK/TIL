@@ -82,6 +82,7 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
     file_get_contents("1.txt");                //파일을 읽어 contents 내용을 return하는 예약어
     file_get_contents($_GET[id].".txt");       //id 값에 따라 읽어오는 txt파일이 다름
 ?>
+```
 
 #### 2번
 ```
@@ -91,6 +92,10 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
     }
      ?>
  ```
+ #### 최종결과
+ ![1](https://cloud.githubusercontent.com/assets/20148930/24066685/0a57af2e-0bb8-11e7-9670-804cc968f11f.JPG)
+
+ --------------
 # JavaScript
  html과 css가 정적인 정보만을 기입할 수 있었다면,
  JavaScript는 웹페이지에 명령하여 _동적_으로 웹페이지를 구성할 수 있도록 지원하는 언어
@@ -280,3 +285,5 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 <!--End of Tawk.to Script-->
 ```
+#### 최종결과
+![2](https://cloud.githubusercontent.com/assets/20148930/24066686/0b12d75e-0bb8-11e7-9f77-65f0b2e760cf.JPG)
