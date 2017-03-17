@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
  <head>
+
 	<meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="http://localhost:81/style.css">
 </head>
-<body>
+<body id="targetBody">
     <header>
         <h1><a href ="http://localhost:81">JavaScript</a></h1>
     </header>
@@ -15,9 +16,25 @@
             <li><a href = "http://localhost:81/page_op.html">연산자</a></li>
         </ol>
     </nav>
+    <div id="control">
+        <input type="button" value="white" id="white_btn"/>
+        <input type="button" value="black" id="black_btn"/>
+    </div>
     <article>
             <h2>변수와 상수?</h2>
             변수는 바뀔 수 있는 값이고 상수는 바뀌지않는 값입니다.
     </article>
 </body>
+
+<script>
+    wbtn = document.getElementById('white_btn');
+    wbtn.addEventListener('click', function(){
+        document.getElementById('targetBody').className='white';
+    })
+
+    bbtn = document.getElementById('black_btn');
+    bbtn.addEventListener('click', function(){
+        document.getElementById('targetBody').className='black';
+    })
+</script>
 </html>

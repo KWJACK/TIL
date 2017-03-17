@@ -1,0 +1,4 @@
+<li><a href ="http://localhost:81/php/index.php?id=1">JavaScript란?</a></li>
+<li><a href ="http://localhost:81/php/index.php?id=2">변수와 상수</a></li>
+<li><a href = "http://localhost:81/php/index.php?id=3">연산자</a></li>
+<li><a href = "http://localhost:81/php/index.php?id=4">조건문</a></li>

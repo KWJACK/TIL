@@ -39,7 +39,7 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
         }
 
         $i = 0;                             <!--반복문-->
-        while($i < 10){ㄴ
+        while($i < 10){
           echo "<li>hello world</li>";
           $i = $i + 1;
         }
@@ -72,8 +72,25 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
     ?>
 </body>
 ```
+### 4. 실습
+ php목적 : 여러 html파일을 **index.php**로 합치는 과정. 정보는 여러 파일로 분할
+ -> 최종적으로는 여러 파일은 데이터베이스 형태로 존재
+#### 1번
+```
+<?php
+    echo $_GET['name'].",".$_GET['id'];        //name & id를  받음 '& == ,'
+    file_get_contents("1.txt");                //파일을 읽어 contents 내용을 return하는 예약어
+    file_get_contents($_GET[id].".txt");       //id 값에 따라 읽어오는 txt파일이 다름
+?>
 
-
+#### 2번
+```
+<?php
+    if(!empty($_GET['id'])){    //empty이면 참. !로 부정
+        echo file_get_contents($_GET['id'].".txt");
+    }
+     ?>
+ ```
 # JavaScript
  html과 css가 정적인 정보만을 기입할 수 있었다면,
  JavaScript는 웹페이지에 명령하여 _동적_으로 웹페이지를 구성할 수 있도록 지원하는 언어

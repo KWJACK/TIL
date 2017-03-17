@@ -1,0 +1,41 @@
+header{
+    border-bottom:1px solid gray;
+    height: 90px;
+    paddig:40px;
+}
+nav{
+    border-right:1px solid gray;
+    width:200px;
+    height: 600px;
+    float:left;
+}
+nav ol {
+    list-style: none;
+}
+article{
+    float:left;
+    padding:20px;
+}
+h2{
+    font-size: 50px;
+    color: red;
+}
+
+#control{
+    float: right;
+    padding: 30px;
+}
+
+
+body.white{
+    background-color: white;
+    color:black;
+}
+body.black{
+    background-color: black;
+    color: white;
+}
+header img{
+    float: right;
+    hight: 70px;
+}

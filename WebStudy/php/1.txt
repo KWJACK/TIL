@@ -1,0 +1,2 @@
+<h2>JavaScript란?</h2>
+Javascript는 웹페이지를 프로그래밍적으로 제어하는 언어입니다
