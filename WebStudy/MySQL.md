@@ -73,6 +73,7 @@ DESC topic;
 --------
 ## MYSQL 실습
  php가 제공하는 mysqli(내장함수)를 사용해 mysql을 다룰 수 있다.
+
  **MYSQL monitor 흐름 : 서버접속 -> DB선택 -> 조회 -> 출력**
 
 **서버접속**
