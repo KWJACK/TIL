@@ -10,14 +10,18 @@ index.html은 웹사이트에서 홈페이지의 정보를 담고 있는 파일
 
 ### 태그
 
-<ol\> : ordered list 숫자나 알파벳 등 순서가 있는 목록 </ol\>
-
+<ol\> : ordered list 숫자나 알파벳 등 순서가 있는 목록
 <ul\> : unordered list 순서가 없는 목록
-</ul\>
-
+\<p\> : paragraph. 단락 구분 태그
 \<a href= "http주소"> : 하이퍼링크 \</a>
-
-\<link> : 링크 태그에 적힌 속성을 보고 외부 파일을 읽어올 수 있다.
+\<link\> : 링크 태그에 적힌 속성을 보고 외부 파일을 읽어올 수 있다.
+\<style\> : css 파일태그
+\<script\> : js 태그
+\<input\> : 인풋 상자 타입으로 텍스트나 버튼 가능 ex) type="text"
+\<textarea\> : 줄바꿈이 가능한 textArea
+\<form\> action="주소"</form\>  form 태그 안의 정보를 action이 가리키는 주소로 보냄
+> ex) \<form action="http://localhost:81/php/3.php" method="GET"\> 보내는 정보 </form\>
+ POST 방식(php서버에서 받아냄), GET 방식(웹url에 담아서 보냄)
 ```
 <stlye>
 # selected{                         //#뒤에는 id값. 해당 id content를 다룸
