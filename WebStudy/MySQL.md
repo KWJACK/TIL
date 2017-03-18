@@ -78,6 +78,7 @@ DESC topic;
 
 **서버접속**
 *(아래는 mysql과 대응하는 php코드)*
+
  mysql> mysql -hlocalhost -uroot -p11111;
 - \$conn = mysqli_connect('localhost', 'root', 11111);
 
