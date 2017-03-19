@@ -12,7 +12,7 @@
 
 # PHP
 CSS가 HTML의 스타일을 한 번에 정의하듯,
-HTML에 있는 태그, 정보들을 _분리_시켜 다룰 수 있는 지원하는 언어
+HTML에 있는 태그, 정보들을 *분리*시켜 다룰 수 있는 지원하는 언어
 즉, 하나의 php파일로 여러개의 html파일을 다룰 수 있다.
 
 기본적으로 php파일은 html과 똑같이 반응(html파일을 그대로 넣어도 적용된다는 소리)
@@ -24,30 +24,30 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
 ```
 <body>
     <?php
-                                            <!--변수-->
-        echo "Hello world"; // --> Hello world **페이지소스에서 <?php가 보이지않음**
-        echo 10+10;             // <!-- 20 -->
-        $name = "egoing";       // <!-- 변수선언시 $ 표시 -->
-        echo "Hello world ".$name; <!-- 문자열 합침은 '.'기호-->
-        var_dump(1==2);         <!--false출력-->
+                                            #변수
+        echo "Hello world";        # Hello world. 페이지소스에서 <?php가 보이지않음
+        echo 10+10;                # 20 
+        $name = "egoing";          # 변수선언시 $ 표시 
+        echo "Hello world ".$name; # 문자열 합침은 '.'기호
+        var_dump(1==2);            #false출력
 
-        $result = (2==2);                   <!--조건문-->
+        $result = (2==2);                   # 조건문
         if($result){
             echo "참";
         }else{
             echo "거짓";
         }
 
-        $i = 0;                             <!--반복문-->
+        $i = 0;                             # 반복문
         while($i < 10){
           echo "<li>hello world</li>";
           $i = $i + 1;
         }
-                                            <!--배열-->
+                                            # 배열
         $list = array("one", "two", "three");
-        $list[0];               <!--echo count($list); length 출력-->
+        $list[0];                           # echo count($list); length 출력
 
-                                            <!--함수문법 JavaScript도 동일-->
+                                            # 함수문법 JavaScript도 동일
         function function_name(input){
             return input+1;
         }
@@ -63,7 +63,7 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
 ```
 <body>
     <?php
-        $password = $_GET["password"];      <!--_GET : 값을 받아오는 예약어-->
+        $password = $_GET["password"];      # _GET : 값을 받아오는 예약어
         if($password =="1111"){
             echo "환영합니다.";
         }else{
@@ -78,19 +78,19 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
 #### 1번
 ```
 <?php
-    echo $_GET['name'].",".$_GET['id'];        //name & id를  받음 '& == ,'
-    file_get_contents("1.txt");                //파일을 읽어 contents 내용을 return하는 예약어
-    file_get_contents($_GET[id].".txt");       //id 값에 따라 읽어오는 txt파일이 다름
+    echo $_GET['name'].",".$_GET['id'];        # name & id를  받음 '& == ,'
+    file_get_contents("1.txt");                # 파일을 읽어 contents 내용을 return하는 예약어
+    file_get_contents($_GET[id].".txt");       # id 값에 따라 읽어오는 txt파일이 다름
 ?>
 ```
 
 #### 2번
 ```
 <?php
-    if(!empty($_GET['id'])){    //empty이면 참. !로 부정
+    if(!empty($_GET['id'])){                   # empty이면 참. !은 부정
         echo file_get_contents($_GET['id'].".txt");
     }
-     ?>
+?>
  ```
  #### 최종결과
  ![1](https://cloud.githubusercontent.com/assets/20148930/24066685/0a57af2e-0bb8-11e7-9670-804cc968f11f.JPG)
@@ -98,7 +98,7 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
  --------------
 # JavaScript
  html과 css가 정적인 정보만을 기입할 수 있었다면,
- JavaScript는 웹페이지에 명령하여 _동적_으로 웹페이지를 구성할 수 있도록 지원하는 언어
+ JavaScript는 웹페이지에 명령하여 *동적*으로 웹페이지를 구성할 수 있도록 지원하는 언어
  즉, HTML에 소스를 삽입하거나 조건을 통해 제어할 수 있는 언어.
 
 ### 1. 선언 \<script\>  \</script\>
@@ -107,13 +107,13 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
 - 웹브라우저에서 실행되는 언어이기 때문
 ```
 <script>
-    document.write("Hello world");  // <!-- Hello world -->
-    document.write(10+10);          // <!-- 20-->
+    document.write("Hello world");   <!-- Hello world -->
+    document.write(10+10);           <!-- 20-->
     name = "이고잉";
     document.write("Hello world"+name);
     document.write(1==2);           <!-- false-->
 
-    result =(1==2);                 //조건문
+    result =(1==2);                 <!-- 조건문-->
     if(result){
         document.write("참");
     }else{
@@ -126,7 +126,7 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
      i = i + 1;
     }
     password = prompt("비밀번호");   <!--웹브라우저 built-in func(프롬프트창 출력)-->
-    <!--자매품 alert("hello world")도 있음(경고창)-->
+                                    <!--자매품 alert("hello world")도 있음(경고창)-->
 
     list = new Array("one", "two", "three");<!--배열-->
     list[0];                        <!--list.length 길이-->
@@ -152,8 +152,9 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
 
 #### 1번 버튼만들기. alert 함수
 ```
-    <input type="button" value="white" onclick="alert('Hello world')"/>
+    <input type="button" value="white" onclick="alert('Hello world')"/>    
     <!--클릭했을 때 js코드 실행. script밖에서 js코드가 실행된다는 것에 주목 -->
+    
     <input type="text" onfocus="alert('focus')" onblur="alert('blur')"/>
     <!-- focus발생시 focus출력, focus해제시 blur 출력-->
 ```
@@ -169,7 +170,7 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
  <head>
 	<meta charset="utf-8"/>
     <style media="screen">
-        .em{                            <!-- class 접근자자는  '.'를 적용 -->
+        .em{                            <!-- class 접근자는  '.'를 적용 -->
             text-decoration: underline;
         }
     </style>
@@ -191,7 +192,7 @@ php 엔진을 통해 만든 소스는 html로 변환되어 삽입.(php소스가 
 <body>
 ```
 #### 4번. 버튼 클릭시 웹페이지 바탕색, 글자색 바꾸기
-\<div id="control"\>//아무런 특징이 없는 태그. 내부적으로 묶으려고 사용
+\<div id="control"\>    //아무런 특징이 없는 태그. 내부적으로 묶으려고 사용
 - css 파일에서 편집
 ```
 #control{
