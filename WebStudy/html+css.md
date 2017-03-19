@@ -35,15 +35,13 @@ index.html은 웹사이트에서 홈페이지의 정보를 담고 있는 파일
 
 ```
 <stlye>
-# selected{                         //#뒤에는 id값. 해당 id content를 다룸
+#selected{                         //#뒤에는 id값. 해당 id content를 다룸
     //style에서 속성값을 정의하는 예
     width:200px;                    //크기
     height: 600px;
     border: 1px solid gray;         //경계선(border-right 등..)
     float: left;                    //이미지와 글자를 나란히
     padding: 30px;                  //content사이의 간격
-
-
 }
 
 nav ol{//id값 말고도 태그로도 접근 가능. 태그의 태그도 가능
@@ -93,9 +91,11 @@ _localhost연결문제 해결 :_
 
   - emmet, (minimap), script
 
-      emmet 활용예 li_20 Tab --> 20개의 li생성
-
-      li>a_20 --> li에 a href 가 20개 생성
+      emmet 활용예 li\*20 + <kbd>Tab</kbd> --> 20개의 li생성
+      
+      \! + <kbd>Tab</kbd> --> html default setting
+      
+      li>a\*20 --> li에 a href 가 20개 생성
 
       div>ul>li --> sub태그들이 생성
 
