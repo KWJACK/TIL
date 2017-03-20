@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+ <head>
+     <script type="text/javascript" src="jquery-3.2.0.js">
+
+     </script>
+	<meta charset="utf-8"/>
+</head>
+<body>
+    <ul id="list">
+        <li>empty</li>
+        <li>empty</li>
+        <li>empty</li>
+        <li>empty</li>
+    </ul>
+    <input type="button" value="EX_button" id="exbtn1" />
+    <script type="text/javascript">
+        var numbers = [20,10,9,8,7,6,5,4,3,2,1];
+        var sortfunc = function(a,b){
+            return a-b;
+        }
+        console.log(numbers.sort(sortfunc));
+
+        function factory_moive(title){
+            return{
+                get_title : function (){
+                    return title;
+                },
+                set_title : function(_title) {
+                    if(typeof _title === 'String'){
+                        title = _title;
+                    }else{
+                        alert('제목은 문자열이여야 합니다.');
+                    }
+                }
+            }
+        }
+
+        ghost = factory_moive('Ghost in the shell');
+        matrix = factory_moive('Matrix');
+        alert(ghost.get_title());
+        alert(matrix.get_title());
+        ghost.set_title(1);
+        alert(ghost.get_title());
+        alert(matrix.get_title());
+
+        $('#exbtn1').click(function(){
+            $('#list li').text('coding everyday');
+        })
+    </script>
+</body>
