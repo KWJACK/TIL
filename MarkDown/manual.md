@@ -98,3 +98,6 @@ var bar = 0;
 ## 기타
 
 줄 바꿈은 엔터 두 번
+
+## 아톰 에디터
+<kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>p</kbd> : project-manager가 저장한 목록 불러오기
