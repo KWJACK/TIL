@@ -1,0 +1,18 @@
+{
+  "name": "server_side_javascript",
+  "version": "1.0.0",
+  "description": "server side javascript tutorials",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jack",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "jade": "^1.11.0",
+    "orientjs": "^2.2.4",
+    "pug": "^2.0.0-beta11",
+  }
+}
