@@ -173,3 +173,37 @@ print int("11001001",2) # int 두 번째 인자는 2진수임을 알려준다
 ```
 0b1 0b10
 201
+----------
+### 클래스 상속
+- super : 상위 클래스의 함수를 사용할 수 있다.
+```
+class Employee(object):
+    def __init__(self, employee_name):
+        self.employee_name = employee_name
+
+    def calculate_wage(self, hours):
+        self.hours = hours
+        return hours * 20.00
+
+class PartTimeEmployee(Employee):   #object가 아닌 상속받을 클래스를 기입
+    def calculate_wage(self, hours):
+        self.hours = hours;
+        return hours*12.00
+
+    def full_time_wage(self, hours):    
+        return super(PartTimeEmployee, self).calculate_wage(hours)
+
+milton = PartTimeEmployee("Milton");
+print milton.full_time_wage(10)
+```
+200.0
+
+--------
+### 파일 입출력
+- `"w"` : 해당 파일을 쓰기 전용 모드
+- `"r"` : 읽기 전용 모드
+-  `"r+"` : 읽고 쓰기 모드
+- `"a"` : 추가(append) 모드 ( 파일의 맨 끝에 작성한 새로운 데이터를 추가)
+```
+my_file = open("output.txt", "r+")
+```
