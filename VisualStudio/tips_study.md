@@ -34,6 +34,7 @@ sub 부(cf. super : 주)
 - LP = long pointer, DRAWITEMSTRUCT
 
 DRAWITEMSTRUCT의 중요한 것은 hDC, rcItem
+
 ![2](/assets/2.JPG)
 
 - 활용 코드
@@ -51,7 +52,9 @@ p_DC->FillSolidRect(r, RGB(255, 0, 255));//분홍색으로 색칠
 ----------------------
 ### TipWnd 생성 실습(child)
 1. `MFC 클래스 추가`-> `CWnd 상속 선택`
+
  ![3](/assets/3_iaawum6h9.JPG)
+ 
    - DECLARE_DYNAMIC : 런타임클래스 자동 추가
      - 런타임클래스 : 디버깅 중간에 다형성으로 상속받은 클래스를 확인하기 위해 이름을 부여하는 것.
      - IMPLEMENT_DYNAMIC 에 함수 정의가 있기 때문에, cpp에서 쌍으로 지워야함
@@ -60,7 +63,9 @@ p_DC->FillSolidRect(r, RGB(255, 0, 255));//분홍색으로 색칠
     - visible속성을 `false`로
 
 3.  main.dlg의 initdialog()에 아래 코드 삽입
+
 ![4](/assets/4.JPG)
+
 해당 코드를 통해 picture box의 위치값을 받아 생성한 **child Wnd의 좌표계산 없이 해당 위치 설정**
 
 -----------
