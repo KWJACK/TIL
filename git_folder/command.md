@@ -48,3 +48,5 @@ git config --global user.name "Your name"
 > 4.	git config core.sparseCheckout TRUE // .git/config에 해당 내용 추가
 > 5.	echo "mainProject/Example2">> .git/info/sparse-checkout
 > 6.	git pull origin master //원격저장소로부터 pull
+
+#  

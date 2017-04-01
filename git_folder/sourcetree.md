@@ -16,17 +16,18 @@
 
 ### 1-3\. 용어 정리
 
-- repository -> repository는 관리할 프로젝트의 디렉토리
+- `repository` : repository는 관리할 프로젝트의 디렉토리
 
-- commit -> 버전 하나를 만드는 행위
+- `commit` : 버전 하나를 만드는 행위
 
-- add -> git에 변경된 파일을 추가하는 행위
+- `add` : git 준비 영역에 추가하는 행위. 준비영역에 추가되면 git에서 변화를 감지
 
-- idex / staging area > Log / History에서 Unstaged files(working copy)상에 수정된 파일 존재
+- `idex / staging area` : Log / History에서 Unstaged files(working copy)상에 수정된 파일 존재
 
   add된 파일은 staged files에 올라간다. 해당 영역은 index 또는 staging area 라고 함
 
   staging area에 있는 파일에 대해 commit하면 repository에 등록됨.
+- `revert` : 기존 수정사항을 무력화
 
 --------------------------------------------------------------------------------
 
@@ -50,13 +51,13 @@ _Hard - discard all working copy changes(매우 조심해서 사용)_
 
 - 프로젝트의 내용물도 같이 수정됨
 
-  _Mixed(Default) - keep working copy but reset index_
+_Mixed(Default) - keep working copy but reset index_
 
 - 선택 commit을 최신으로 바꾸면서 이전 최신 commit을 모두 삭제,
 
 - but, **working copy의 내용은 update하고 싶지 않을 때** 사용
 
-  _Soft - keep all local changes_
+_Soft - keep all local changes_
 
 ### 2-2\. Revert
 
