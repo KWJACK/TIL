@@ -1,6 +1,6 @@
-# 팁스 스터디 정리 4/1
+# 팁스 스터디 정리 4/1|
 
-### SubClassing
+## SubClassing
 Sub + class : class-> window class의 약자
 sub 부(cf. super : 주)
 

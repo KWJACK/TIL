@@ -98,6 +98,7 @@ var bar = 0;
 
 ## 아톰 에디터
 <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>p</kbd> : project-manager가 저장한 목록 불러오기
+<kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>i</kbd> : 이미지 추가(markdown_enhance필요)
 
 
 ## markdown2html
