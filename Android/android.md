@@ -1,4 +1,15 @@
 # Android 정리
+## XML 속성 정리
+```
+<LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/layout_page1"
+       <!-- insert your item -->
+</LinearLayout>
+```
+- wrap_content : item 크기만큼
+- match_parent : parent layer에 귀속
 
 ## Btn listner를 만드는 방법
 #### xml + C스타일로 만들기
