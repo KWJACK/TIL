@@ -1,3 +1,4 @@
+# SR_2017 Session
 ## 리눅스 서버 접속
 ### putty 세팅
  >`sudo nohup python ./main.py &` : 프로세스 중단을 무시하고 명령어 실행
@@ -12,8 +13,10 @@ hostname : `접속 ip`
 port :`22`
 connection type : `SFTP`
 
-## 텐서보드 활용
+-------------
+# Tensorflow Session
 
+## 텐서보드 활용
 `writer = tf.summary.FileWriter("./logs/logs1", sess.graph)`
 명령어실행 : `tensorboard --logdir=/logs/log1`
 실행 후 뜨는 url에 접속하여 확인
@@ -26,7 +29,17 @@ test_distance_val =  sess.run(distances)
 print test_distance_val
 ```
 
+##
+- session(run)
+  - 필수파라미터 fetches 와
+  - 세 개의 옵션 파라미터(feed_dict, options, run_metadata) 존재
+  - fetches가 리스트라면 run()의 출력은 요청된 항목들 출력 값 리스트 형태
+  - feed_dict : 입력 객체는 딕셔너리 형태
+
 ## 주요함수
+tensorflow 1.0.0 버전으로 업그레이드 되면서 이름이 바뀐 함수들 참고 URL
+https://tensorflow.blog/2016/12/22/tensorflow-api-changes/
+
 |함수|설명|예시|
 |----|-------|-------|
 |tf.shape| 텐서의 구조 확인|

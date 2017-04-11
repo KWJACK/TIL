@@ -207,3 +207,12 @@ print milton.full_time_wage(10)
 ```
 my_file = open("output.txt", "r+")
 ```
+
+## numpy
+
+np_2d[0]  => 0번째 row 출력
+np_2d[0, 2] = np_2d[0][2]
+np_2d[:, 1:3] => 전체 row에서, 1~2번째 열 형태로 출력
+np_2d[1,:] => 1번째 row의 모든 열값 출력
+
+np_baseball.shape

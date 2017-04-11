@@ -68,3 +68,11 @@ cmd에서 마법의 주문을 친다. (경로는 anaconda3 설치 위치여야�
 
 
 포스트 참고 URL : http://codingdojang.com/scode/370
+
+## tensorboard 시작
+```
+C:\Program Files\Anaconda3\Lib\site-packages\tensorflow\tensorboard 이동
+
+tensorboard가 생성된 path 입력하여 수행
+python tensorboard.py --logdir="C:\Users\Coms7\PycharmProjects\chap3_tensorboard\my_graph"
+```
