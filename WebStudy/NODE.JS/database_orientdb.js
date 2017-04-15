@@ -3,7 +3,7 @@ var server = OrientDB({
     host: 'localhost',
     port: 2480,
     username: 'root',
-    password: '1thflatk!'
+    password: '1111'
 });
 var db = server.use('o2');
 

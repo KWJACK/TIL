@@ -1,4 +1,4 @@
-# MySQL
+y# MySQL
  - Structured Query Language
 - 정보를 관리하는 전문 관계형 데이터베이스 애플리케이션
 - 인덱싱으로 접근이 빠르다
@@ -8,7 +8,7 @@
 웹브라우저(Client)->웹서버(Server)->PHP(Client)->MySQL(Server)
 
 #### mysql 모니터 위치
-C:\Bitnami\wampstack-5.6.30-1\mysql\bin에 mysql.exe
+C:\Bitnami\wampstack-5.6.30-1\mysql\bin에 mysql.exe를 다음 명령어로 실행
 > cf. cmd에서 작업표시창 우클릭하여 속성->옵션->빠른 편집 모드 선택시
 복사& 붙여넣기 기능 활성화
 
