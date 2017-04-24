@@ -6,6 +6,17 @@
 즉, 웹브라우저든 웹서버든 Node.js로 모든걸 짜도 된다는 의미
 
 여러 환경(웹브라우저, Node.js, googleSpreadSheet)에서 언어(JavaScript)라는 공통 분모
+
+## ejs(Embedded Javascript templates)?
+
+- HTML템플릿 엔진 모듈
+
+- ejs형식으로 html이 생성되어 있으면 fs를 통해 읽어서 ejs가 해석하여 결과를 html로 출력하는 엔진 모듈
+
+기본적으로 <% %> 안에 사용하며 인젝션된 변수를 동적으로 쓸 수 있음
+> <%=var.idx %> : variable의 idx출력
+> <% ; %> : 프로그램
+
 ## 기본 문법 심화
  https://opentutorials.org/course/50 js문법 정리 주소
 ####  함수를 정의하는 방법
