@@ -20,6 +20,7 @@
 
 - multer 추가(`npm install multer --save`)
 var multer = require('multer');
+
 var upload = multer({dest: 'public/images'}); //multer의 저장 디렉토리 옵션 설정
 
 
