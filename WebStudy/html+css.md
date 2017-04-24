@@ -24,9 +24,12 @@ index.html은 웹사이트에서 홈페이지의 정보를 담고 있는 파일
 
 \<script\> : js 태그
 
-\<input\> : 인풋 상자 타입으로 텍스트나 버튼 가능 ex) type="text"
+\<input\> : 인풋 상자 타입으로 텍스트나 버튼 가능
+- type="button" or "submit" or "password" or "text"
 
-\<textarea\> : 줄바꿈이 가능한 textArea
+\<textarea\> : 줄바꿈이 가능한 textArea.
+-  readonly, disabled 속성
+ 글 수정 방지 가능. disabled는 마우스 커서도 안잡히고 form으로 전송이 안됨
 
 \<form\> action="주소"</form\>  form 태그 안의 정보를 action이 가리키는 주소로 보냄
 
@@ -92,9 +95,9 @@ _localhost연결문제 해결 :_
   - emmet, (minimap), script
 
       emmet 활용예 li\*20 + <kbd>Tab</kbd> --> 20개의 li생성
-      
+
       \! + <kbd>Tab</kbd> --> html default setting
-      
+
       li>a\*20 --> li에 a href 가 20개 생성
 
       div>ul>li --> sub태그들이 생성
@@ -102,9 +105,11 @@ _localhost연결문제 해결 :_
   emmet을 설치하면 코드 생산성이 매우 좋아짐.   (ex)<kbd>!</kbd>+ <kbd>Tab</kbd> : !DOCTPYE 이후 자동 세팅
 
 
-# CSS
+------
 
-html의 정보를 스타일이 좋게 표현하도록, **디자인**을 지원하는 언어
+# CSS
+## 개념
+html의 정보를 스타일이 좋게 표현하도록, **디자인** 을 지원하는 언어
 
 html에서 stlye을 각 html파일에 만들면 유지보수하기 어렵다.
 
@@ -117,3 +122,36 @@ html에서 stlye을 각 html파일에 만들면 유지보수하기 어렵다.
 ```
 - cf. 크롬 플러그인 chrome extension stylebot을 이용하면 스타일을 실험적으로 디자인 가능.
     - 실험적이지만 stylebot을 저장하면 실제 웹페이지도 바뀜(자신의 로컬에서)
+----------
+#### html에서 스타일링을 통하는 세가지 방법
+1. internal style 방식 \<head\> 태그 사이에 `<style>`태그로 주는 방법
+
+2. external css 방식 : \<head\>태그 사이에 외부 경로 삽입
+
+    `<link rel="stylesheet" type="text/css" url="외부css파일경로"\>`
+
+3. inline style 방식 : html 마크업 자체에서 속성값 지정
+    `<div style="background:#000; color:#fff;"></div>`
+-------
+## 문법
+클래스 :  `.NAME {속성들}` : 앞에 쩜을 찍고 접근
+아이디 : `#NAME {속성들}` :  앞에 #을 찍음
+(아이디를 남발하기 보다는 클래스를 통하는 것이 좋음)
+(아이디는 유일하기 때문에 접근이 개별적이지만, 클래스는 모든 엘리먼트에 대해 접근하기 때문)
+
+jQeury에서 css를 사용할 때 문법을 비슷하게 적용 가능
+`css`---`#header{ border : 4px solid #ff0000; }`
+`jQuery`---`$("#header").css("border", "4px solid #ff0000")`
+
+#### 선택자
+ 엘리먼트를 선택하는 기능.
+|CSS|jQeury|설명|
+|---|---|:---|
+|*|$("*")|모든 엘리먼트 선택
+|#I|$("#I")|아이디가 I인 엘리먼트 선택
+|E|$("E")|태그 이름이 E인 모든 엘리먼트 선택
+|.C|$(".C")|C라는 클래스 선택자를 가진 모든 엘리먼트
+|E F|$("E F")|E의 자식 노드 중 태그 이름이 F인 모든 엘리먼트 선택
+|E.C|$("E.C")|태그 이름이 E인 엘리먼트중 C라는 클래스 선택자를 가진 모든 엘리먼트 선택
+|E .C|$("E .C")|E의 자식노드 중 C라는 클래스 선택자를 가진 모든 엘리먼트 선택
+|E>F|$("E>F")|E의 바로 아래 자식 태그 이름이 F인 모든 엘리먼트 선택
