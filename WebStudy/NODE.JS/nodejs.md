@@ -1,5 +1,4 @@
 # Node.js
-//모던 웹을 위한 Node.js프로그래밍 대출필요
 예제
 ```
 const http = require('http');
@@ -154,3 +153,122 @@ madantory 옵션 : 내용 입력되지 않으면 db에 추가하지 않음
 |`DELETE` | `DELETE FROM topic WHERE @rid=:rid`|
 
 **`DELETE`와 `UPDATE`를 사용할 때 WHERE을 똑바로 사용하지 않으면 대참사 발생**
+
+## Passport http://passportjs.org/
+인증을 쉽게 도와주는 npm
+cookie를 이용하지 않고 `session` 이용
+Federation authentication 지원(Facebook, Google ...)
+
+- 홈페이지에서 Documments->Configure 창 접근
+
+
+- npm require 추가(`npm install --save passport-local`)
+  - var passport = require('passport');
+  - var LocalStrategy = require('passport-local').Strategy;
+  - var session = require('express-session'); //`dependency로 session 필요`
+  - var MySQLStore = require('express-mysql-session')(session); //`session을 mysql DB에 저장`
+
+
+- session 정의
+  ```
+  router.use(session({                 //express-session. session을 사용할 수 있도록 붙임
+    secret: '1234DSFs@adf1234!@#$asd', //secret , session id로 넣을 값
+    resave: false,                     // session을 계속 발생시키지 않도록
+    saveUninitialized: true,           //session을 사용전까지 발급안함
+    store:new MySQLStore({ //접속할 데이터베이스 지정. 서버가 닫히면 session이 초기화 되므로
+      host: 'localhost',
+      port: 3306,         //mysql 기본 포트
+      user: 'root',
+      password: 'userpassword',
+      database: 'test'
+    })
+  }));
+  ```  
+- middle ware 추가
+  - app.use(passport.initialize());
+  - app.use(passport.session());  // session 정의 아래에 위치
+
+
+- username & password 지정 (html)
+  - form 항목 확인
+    form에서 input name에서 `name=username`으로 input password는 `name=password`로 꼭 맞춰준다
+
+
+- passport.user에서 password 암호화.
+```
+passport.use(new LocalStrategy( //위에서 정의한 local을 미들웨어로 사용.
+  function(username, password, done){//form에서 전달한 username, password를 받음
+    var uname = username;
+    var pwd = password;
+    var sql = 'SELECT * FROM users WHERE username=?';
+    pool.getConnection((err, connection)=>{ //DB 연결
+      connection.query(sql, [uname], (err, results)=>{        
+        if(err){  return done('There is no user.');  }
+        else{
+          var user = results[0];  //sql 결과값
+
+          //hasher를 통해 암호화
+          //pass:암호화하려는 원래값, salt:암호화 매핑 salt값, hash: salt로 만든 단방향 암호.
+          //salt값이 매번 달라지기때문에 pass가 같아도 다르게 됨
+          return hasher({password: pwd, salt: user.salt},function(err, pass, salt, hash){
+            if(hash === user.password){//로그인된 상태                
+                done(null, user);//두번째 인자는 전달할 객체. serialize에서 이용
+            }else{
+                done(null, false);//로그인 절차가 끝났는데, fail했다는 의미
+            }
+          });
+        }
+      });
+      connection.release();
+    });
+  }
+));
+```
+- serializeUser & deserializeUser 추가
+```
+passport.serializeUser((user, done)=>{//passport.use에서 done으로 준 객체를 첫번쨰 인자로 받음
+  done(null, user.username);//session에 현재 접근한 user의 authId를 등록
+});
+
+passport.deserializeUser((username, done)=>{  //serializeUser에서 session에 저장한 값을 첫번째 param으로
+  var sql = "SELECT * FROM users WHERE username=?";
+  pool.getConnection((err, connection)=>{ // DB접근
+    connection.query(sql, [username], (err, results)=>{
+      if(err){ done('There is no user.'); }
+      else{
+        done(null, results[0]); //결과 전달. post에서 req.user로 값을 확인
+      }
+    });
+    connection.release();
+  });
+});
+```
+
+
+- 인증 사용하기
+```
+router.post(
+  '/login',
+  passport.authenticate(
+    'local', //미들웨어 local 사용
+    {
+      successRedirect: '/board',//로그인 성공시 board페이지로 이동
+      failureRedirect: '/join/register',//실패시 가입페이지로
+      failureFlash: false//인증에 실패할 때 메시지를 보이는 기능(true)
+    }
+  )
+);
+```
+
+
+- session 로그아웃
+```
+router.get('/logout', (req,res)=>{
+  console.log("join get logout");
+  req.logout();//passport가 제공
+  req.session.save(()=>{
+   res.redirect('/board');
+  })
+  delete req.session.name;
+});
+```
