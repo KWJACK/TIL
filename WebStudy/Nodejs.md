@@ -116,6 +116,7 @@ html
     div= time //주입받은 변수 사용시 = 기호를 붙여 받음
 ```
 #### 문법(기호) 정리
+
 |기호|설명|예제|
 |:---:|:------------:|------|
 | `-`| 이하 자바 문법 적용|  - rid = encodeURIComponent(topic['@rid']) <br> a(href='/topic/'+rid)= topic['title']|
