@@ -145,7 +145,7 @@ http://localhost:2480 에서 orientDB를 컨트롤할 수 있다.
 
 madantory 옵션 : 내용 입력되지 않으면 db에 추가하지 않음
 
-- ### CRUD 
+- ### CRUD
  데이터를 다루는 기초 작업(`C`reate, `R`ead, `U`pdate, `D`elete). sql과 동일 명령어
 
 |작업|sql 문법|
@@ -157,22 +157,32 @@ madantory 옵션 : 내용 입력되지 않으면 db에 추가하지 않음
 
 **`DELETE`와 `UPDATE`를 사용할 때 WHERE을 똑바로 사용하지 않으면 대참사 발생**
 
-## Passport http://passportjs.org/
-인증을 쉽게 도와주는 npm
-cookie를 이용하지 않고 `session` 이용
-Federation authentication 지원(Facebook, Google ...)
+## Passport http://passportjs.org/ + pbkdf2
+### Passport
+- 인증을 쉽게 도와주는 npm.
+- cookie를 이용하지 않고 `session` 이용
+- Federation authentication 지원(Facebook, Google ...)
+- 설명서 : 홈페이지 Documments->Configure 참고
 
-- 홈페이지에서 Documments->Configure 창 접근
+### pbkdf2
+- 암호화 npm. 1:1 대응방식이 아님.
+- pass:암호화하려는 원래값, salt:암호화 매핑 salt값, hash: salt로 만든 단방향 암호 이용
+- salt값이 매번 달라지기때문에 pass가 같아도 다르게 됨
 
 
-- npm require 추가(`npm install --save passport-local`)
+### 필요 require(npm 설치 생략)
+##### passport
   - var passport = require('passport');
-  - var LocalStrategy = require('passport-local').Strategy;
+  - var LocalStrategy = require('passport-local').Strategy; //타사인증이 아닌 local방식 이용
   - var session = require('express-session'); //`dependency로 session 필요`
   - var MySQLStore = require('express-mysql-session')(session); //`session을 mysql DB에 저장`
+##### pbkdf2  
+  - var bkfd2Password = require('pbkdf2-password'); //암호화
+  - var hasher = bkfd2Password(); //복호화
 
 
-- session 정의
+### passport + pkbdf2을 통한 로그인 AtoZ
+- session 추가
   ```
   router.use(session({                 //express-session. session을 사용할 수 있도록 붙임
     secret: '1234DSFs@adf1234!@#$asd', //secret , session id로 넣을 값
@@ -196,10 +206,9 @@ Federation authentication 지원(Facebook, Google ...)
   - form 항목 확인
     form에서 input name에서 `name=username`으로 input password는 `name=password`로 꼭 맞춰준다
 
-
-- passport.user에서 password 암호화.
+- passport.user에서 LocalStrategy로 암호화 and hasher로 복호화
 ```
-passport.use(new LocalStrategy( //위에서 정의한 local을 미들웨어로 사용.
+passport.use(new LocalStrategy( //위에서 정의한 local을 미들웨어로 사용. 암호화
   function(username, password, done){//form에서 전달한 username, password를 받음
     var uname = username;
     var pwd = password;
@@ -210,9 +219,9 @@ passport.use(new LocalStrategy( //위에서 정의한 local을 미들웨어로 �
         else{
           var user = results[0];  //sql 결과값
 
-          //hasher를 통해 암호화
+          //hasher를 통해 복호화
           //pass:암호화하려는 원래값, salt:암호화 매핑 salt값, hash: salt로 만든 단방향 암호.
-          //salt값이 매번 달라지기때문에 pass가 같아도 다르게 됨
+          //입력한 pass값과 salt값을 이용해 원래의 암호화값 hash를 구해 비교
           return hasher({password: pwd, salt: user.salt},function(err, pass, salt, hash){
             if(hash === user.password){//로그인된 상태                
                 done(null, user);//두번째 인자는 전달할 객체. serialize에서 이용
