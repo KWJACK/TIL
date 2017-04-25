@@ -137,3 +137,64 @@ $.ajax({
       }
   });
 ```
+
+## passport + session을 이용한 게시물 삭제
+https://github.com/KWJACK/TIL/blob/master/WebStudy/Nodejs.md passport + 암호화 설명 참고
+
+- board.js (nodejs)
+```
+router.post('/deleteConfirm/:idx', (req, res)=>{//POST형식
+  var passwd = req.body.password;  //JSON형태의 값에서 value(passwd를 받음)    
+  var idx = req.params.idx;
+  hasher({password: passwd, salt: req.user.salt},function(err, pass, salt, hash){ //복호화  
+    pool.getConnection((err, connection)=>{         // DB connection
+      var sql = "SELECT password, image FROM board WHERE idx=?";
+      connection.query(sql, idx, (err, results)=>{  // passwd와 image는 results에 저장
+        var sql = "DELETE FROM board WHERE idx=?";  // DB 삭제하는 sql
+        if(results[0].password == hash){            // passwd가 일치하면
+          if(results[0].image==""){                 // image가 없는 글일 경우
+            connection.query(sql, idx, (err, results)=>{
+              res.redirect('/');                    //글 삭제 후 board로 돌아옴
+            });
+          }else{      //이미지가 있으면 DB뿐아니라 서버에서 이미지 파일도 같이 삭제해야함
+            fs.unlink('public/images/'+ results[0].image, (err)=>{    //unlink=파일삭제
+              if(err)console.log(err);
+              else{
+                 connection.query(sql, idx, (err, results)=>{
+                   console.log("delete the board in DB");
+                   res.redirect('/');
+                 });
+              }
+            });
+          }//image가 있다면(else)
+        }
+        else{/*pass가 일치하지 않는 경우*/}
+        connection.release();
+      });
+    });
+  });
+});
+```
+
+- read.ejs(javascript 부분)
+```
+password 대상 html소스 : <input type="password" name="mypassword" id="mypassword">
+-------------------------------------------------------------------------------------
+<script>
+...
+
+var password = { password: $("#mypassword").val() }; id mypassword 태그의 value를 튜플로 저장
+$.ajax({
+      type: 'POST',
+      data: JSON.stringify(password),     //오브젝트 형태로 넘김
+      contentType: 'application/json',
+      url: 'http://localhost:3000/board/deleteConfirm/<%=row.idx%>',  //보낼 위치
+      success: function(data) {   // 정상 처리후 취할 액션
+          alert("삭제완료");
+          location.href ="http://localhost:3000/board";
+      }
+  });
+
+...
+</script>
+```
