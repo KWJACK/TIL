@@ -7,6 +7,7 @@ y# MySQL
 
 웹브라우저(Client)->웹서버(Server)->PHP(Client)->MySQL(Server)
 
+- #### `HeidiSQL`을 사용하면 GUI환경에서 DB를 다룰수있다.
 #### mysql 모니터 위치
 C:\Bitnami\wampstack-5.6.30-1\mysql\bin에 mysql.exe를 다음 명령어로 실행
 > cf. cmd에서 작업표시창 우클릭하여 속성->옵션->빠른 편집 모드 선택시
