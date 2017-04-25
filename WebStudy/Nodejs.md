@@ -145,7 +145,9 @@ http://localhost:2480 에서 orientDB를 컨트롤할 수 있다.
 
 madantory 옵션 : 내용 입력되지 않으면 db에 추가하지 않음
 
-`CRUD` : 데이터를 다루는 기초 작업(`C`reate, `R`ead, `U`pdate, `D`elete). sql과 동일 명령어
+- ### CRUD 
+ 데이터를 다루는 기초 작업(`C`reate, `R`ead, `U`pdate, `D`elete). sql과 동일 명령어
+
 |작업|sql 문법|
 |:--:|:--|
 |`CEATE` | `INSERT INTO topic (title, description, author) VALUES(:t, :d, :a)`|
