@@ -31,3 +31,10 @@
 두개 인자 이하의 경우 스택에 인자를 저장하지 않아도 되므로 수행속도 향상
 
 참고 : http://www.tipssoft.com/bulletin/board.php?bo_table=FAQ&wr_id=625
+
+## 에러 리포팅
+### fetal error C1083
+- winsock2.h 파일이 없다고 컴파일 되지않는 오류
+- 해결로 progma를 쓰니 뭐니 하기 전에 다음 창에서 Windows SDK 버전이 8.1로 되있는 건 아닌지 확인
+- 아래 처럼 최신으로 바꾸면 수정 완료
+![12](http://i.imgur.com/048kvG6.png)
