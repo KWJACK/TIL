@@ -54,7 +54,7 @@ p_DC->FillSolidRect(r, RGB(255, 0, 255));//분홍색으로 색칠
 1. `MFC 클래스 추가`-> `CWnd 상속 선택`
 
  ![3](/assets/3_iaawum6h9.JPG)
- 
+
    - DECLARE_DYNAMIC : 런타임클래스 자동 추가
      - 런타임클래스 : 디버깅 중간에 다형성으로 상속받은 클래스를 확인하기 위해 이름을 부여하는 것.
      - IMPLEMENT_DYNAMIC 에 함수 정의가 있기 때문에, cpp에서 쌍으로 지워야함
@@ -98,3 +98,34 @@ p_DC->FillSolidRect(r, RGB(255, 0, 255));//분홍색으로 색칠
 WndProc ->(호출) WM_COMMAND-> (실행) OnCommand
 
 D2D는 서버에서 실행하는 기법이 아님.
+
+
+## 창을 라운드하게
+```
+CRgn wnd_rgn; //region 디스플레이 + 영역 판단. 하지만 64k이상 영역 처리 힘듬
+POINT pos[360];
+	//sin은 라디안을 쓰므로 변환 필요
+	double radian;
+	for (int i = 0; i < 360; i++) {
+		radian = i*3.141592 / 180;
+		pos[i].x = sin(radian)*100+100;	//xy좌표에 sin, cos 대응은 시계방향이냐 반시계냐의 문제
+		pos[i].y = cos(radian)*100+100;	//*100은 원 scale, +100 중심좌표
+	}
+
+	wnd_rgn.CreatePolygonRgn(pos, 360, ALTERNATE);//점 단위로 다각형을 그림.
+	SetWindowRgn((HRGN)wnd_rgn, TRUE);
+	wnd_rgn.DeleteObject();
+
+  ```
+  ![1](http://i.imgur.com/1MGyInH.jpg)
+
+## 투명화 예제
+http://www.tipssoft.com/bulletin/board.php?bo_table=update&wr_id=48
+
+
+## 테두리에 라운드 옵션
+```
+CRect r;
+	GetWindowRect(r);
+	wnd_rgn.CreateRoundRectRgn(r.left, r.top, r.right, r.bottom, 30, 30);//반지름이 5인 원을 만들겠다.
+```
