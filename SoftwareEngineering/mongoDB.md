@@ -45,18 +45,26 @@ http://www.w3ii.com/ko/mongodb/mongodb_data_modeling.html 한글 메뉴얼 페�
 
   - document 제거
   `db.collection_name.remove(criteria, [justOne])`
+  
   justone을 true로 두면 criteria와 일치하는 데이터중 한 개만 삭제
   false가 기본값. 일치하는 데이터 모두를 지움
+  
   `db.books.remove({"name": "NodeJS"})`
+  
   `db.books.remove({"name": "NodeJS"}, true)`
 
 
 - document 조회
   `db.books.find()`
+  
   `db.books.find().pretty()` //멀티라인으로 출력
+  
   `db.books.find({"value": 56})`  //56인 document를 찾아서 조회
+  
   `db.books.find({"value": { $gt: 100} })`  //100보다 큰 document를 연산자 gt를 이용해 출력
+  
   `db.books.find({"value": {$gt:0, $lt:100}})` //0~100사이의 document조회
+  
   `db.books.find({"value": {$gt:0, $lt:100, $nin: [12,33]}})` //0~100사이, 12,33제외
 
 
