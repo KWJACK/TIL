@@ -155,7 +155,15 @@ Board.findOneAndUpdate({idx:idx}, {$inc: {hit: 1}}, {new:true}, (err, doc)=>{
 });
 
 //Insert: 해당 컬렉션에 맞는 객체를 선언하고 save를 통해 가능
-var board1 = new Board({idx: 1, creator_id: creator_id, title: title, content: content, password: password, image: imageArray, hit: 0});
+var board1 = new Board({
+        idx: 1,
+        creator_id: creator_id,
+        title: title,
+        content: content,
+        password: password,
+        image: imageArray,
+        hit: 0
+    });
 
 board1.save((err, doc)=>{//Board collection에 doc를 저장
   /* 작업 내용 */
