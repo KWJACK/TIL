@@ -1,7 +1,6 @@
 
 ## mongo DB 설치
 https://velopert.com/457 에 자세히 나와있음. 생략
-https://www.inflearn.com/course-status-2/ 온라인 강좌를 보고 정리
 http://www.w3ii.com/ko/mongodb/mongodb_data_modeling.html 한글 메뉴얼 페이지
 
 ## mongoDB 사용
@@ -67,6 +66,12 @@ http://www.w3ii.com/ko/mongodb/mongodb_data_modeling.html 한글 메뉴얼 페�
 
   `db.books.find({"value": {$gt:0, $lt:100, $nin: [12,33]}})` //0~100사이, 12,33제외
 
+- document 업데이트
+`db.books.update({"post": post_id}, {"$inc" : {"comments.0.votes": 1}})` // comment가 배열일 때 첫 번째 배열 doc에 접근해 votes를 1 올림
+`db.books.update({"coments.author": "John"}, {"$set" : {"comments.$.author": "Jim"}})`
+// `$`연산자를 통해 쿼리 문서와 일치하는 배열의 요소와 해당 요소의 위치를 알아내 갱신할 수 있음.
+// 단 첫 번째로 일치하는 것만 갱신
+
 
 -  쿼리연산자
 
@@ -111,6 +116,7 @@ and의 또 다른 방법: 찍기
 comments field 가 비어있는 Document 조회
 `db.articles.find( { $where: "this.comments.length == 0" } )`
 
+
 ## mongoose
 - nodejs에서 mongodb를 지원하는 모듈
 --------------
@@ -136,6 +142,8 @@ ex) 로그인 기능이 있는 게시판
 - #### mongoose 사용
   - 콜렉션에 접근할 객체를 선언하고 객체의 메서드를 통해 작업하는 구조.
   - Built-in된 메서드를 사용하거나 사용자 정의 메서드를 만들어 사용할 수 있다.
+  - 스키마 선언시 지원하는 데이터형
+      `String, Number, Date, Buffer, Boolean, Mixed, ObjectId, Array`
 ```
 mongoose.Promise = global.Promise; //몽구스 사용시 promise 선언필수
 mongoose.connect('mongodb://localhost/mongodb_tutorial');  // local mongodb에서 mongodb_tutorial 컬렉션에 커넥트
@@ -173,6 +181,8 @@ var board1 = new Board({
         hit: 0
     });
 
+  //Update: 내용이 많아 항목으로 따로 정리
+
 board1.save((err, doc)=>{//Board collection에 doc를 저장
   /* 작업 내용 */
 });
@@ -182,9 +192,31 @@ Board.remove({idx:idx}, (err)=>{
   /* 작업 내역 */
 });
 ```
+- #### mongoose update  
+  - update시 데이터 삽입
+    - Array 사용시 배열 선언하고 push메서드를 사용
+    - push 는 object를 array에 추가. [1,2] + [4,5] >> [1,2], [4,5]
+    - pushAll은 array를 array에 추가.[1,2] + [4,5] >> [1,2,4,5]
+    - `upsert: bool(T/F) - creates the object if it doesn't exist. defaults to false.`
+    ```
+    Board.update({idx:idx}, {$pushAll: {image: imageArray}}, {upsert:true}, (err, doc)=>{ });
+    ```
+    ```
+    ex) var imageArray=[];
+        for(var i=0;i<image.length;i++){
+          imageArray.push(image[i].filename);
+        }
+    ```
+  -  update시 데이터 삭제
+      - `new: true이면 삭제 한 데이터 반환 x, false이면 삭제한 데이터 반환`
+      ```
+      Board.findOneAndUpdate({idx:idx}, {$pull: {image: {$in: array}}},
+         {'new':true}, (err, doc)=>{};
+      ```
 
 - #### mongodb-autoincrement 모듈을 통한 autoIncrement 기능
   - mongo에서 자체적으로 autoIncrement기능을 제공하지 않기 때문에 이 같은 모듈을 적용.
+  - (추가) : 모듈을 쓰기에 자잘한 버그가 생길 수 있음. 그럴때는 만든 collection을 drop하고 사용..
 ```
 //npm mongodb-autoincrement를 통해 idx 자동 증가 예시
 autoIncrement.setDefaults({
@@ -198,41 +230,17 @@ mongoose.plugin(autoIncrement.mongoosePlugin, null);
 https://www.npmjs.com/package/mongodb-autoincrement 참고
 
 
-- #### Mongo에서 세션 사용하기
+- #### mongoose에서 세션 사용하기
 ```
 var db = mongoose.connection;
-
 router.use(session({//express-session 필요.
   secret: '1234DSFs@adf1234!@#$asd', //secret , session id로 넣을 값. ()아무렇게쓰면 됨)
   resave: false,    // session을 계속 발생시키지 않도록
   saveUninitialized: true,  //session을 사용전까지 발급안함
   store:new MongoStore({mongooseConnection: db})
 }));
-
 ```
+
 - #### 참고사항
   - 다른 파일에서 connection으로 접근시 에러 발생. 아래와 같이 적용
 `mongoose.createConnection('mongodb://localhost/mongodb_tutorial');`
-  - 스키마 선언시 지원하는 데이터형
-    `String, Number, Date, Buffer, Boolean, Mixed, ObjectId, Array`
-  - Array 사용시 배열 선언하고 push메서드를 사용
-  ```
-  ex) var imageArray=[];
-      for(var i=0;i<image.length;i++){
-        imageArray.push(image[i].filename);
-      }
-  ```
-  - update시 데이터 삽입
-    - push 는 object를 array에 추가. [1,2] + [4,5] >> [1,2], [4,5]
-    - pushAll은 array를 array에 추가.[1,2] + [4,5] >> [1,2,4,5]
-    ```
-    Board.update({idx:idx}, {$pushAll: {image: imageArray}}, {upsert:true}, (err, doc)=>{ });
-    ```
-  -  update시 데이터 삭제
-  ```
-  Board.findOneAndUpdate(
-    {idx:idx},
-    {$pull: {image: {$in: array}}},
-    {'new':true}, //new가 없으면 동작 X
-   (err, doc)=>{};
-  ```
