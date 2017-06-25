@@ -81,6 +81,7 @@ app.listen(3000, ()=>{
 - 필수 선언 요소
 `var multer = require('multer');`
 `var upload = multer({storage: _storage});`
+- 사
  ```
  var _storage = multer.diskStorage({
    destination: (req,file, cb)=>{
@@ -90,7 +91,13 @@ app.listen(3000, ()=>{
      cb(null, file.originalname);//파일이름지정
    }
  })
+ var upload = multer({storage: _storage});
+ // upload를 미들웨어로 사용하면 되고 사용모드는 single, array, field가 있다.
  ```
+ - single : 하나의 파일만 저장  ex) upload.single('attachFile')
+ - array : 여러개의 파일 저장. **하나 일시 배열로 취급안함**
+ - field : 파일 인자가 복수게. 각 인자에서 배열로 넘겨받음
+    - upload.fields([{ name: 'videoImage', maxCount: 5 }, { name: 'attachFile', maxCount: 10 }])
 
 ## 템플릿 엔진 pug(jade)
 express에서 html코드를 쉽게 작성하도록 돕는 템플릿 엔진

@@ -155,6 +155,10 @@ var boardSchema = mongoose.Schema({ // boardSchema 선언
     "content": String,
     "password": String,
     "image": Array,
+    "video": [{       //sub-document 선언시 [{ content }]
+      "video":Array,
+      "vimage":Array      
+    }],       
     "hit": Number
 }, {versionKey: false}/*__v버전키 필드 제거*/);
 
@@ -179,13 +183,13 @@ var board1 = new Board({
         password: password,
         image: imageArray,
         hit: 0
-    });
-
-  //Update: 내용이 많아 항목으로 따로 정리
-
+    });      
 board1.save((err, doc)=>{//Board collection에 doc를 저장
   /* 작업 내용 */
 });
+
+//Update: 내용이 많아 항목으로 따로 정리
+/* 바로 아래 있음*/
 
 //Delete: 조건으로 projection후 remove함
 Board.remove({idx:idx}, (err)=>{
@@ -207,6 +211,12 @@ Board.remove({idx:idx}, (err)=>{
           imageArray.push(image[i].filename);
         }
     ```
+  - subdocument 데이터 업데이트
+    ```
+    Poster.findOneAndUpdate({movietitle:movietitle}, //query
+            {$set: {video: {video: videoArr, vimage: vimageArr}}} ,{new:true}, (err, doc)=>{
+    ```
+    - 이 후 vimage 접근은 video.vimage 이런 식으로 가능
   -  update시 데이터 삭제
       - `new: true이면 삭제 한 데이터 반환 x, false이면 삭제한 데이터 반환`
       ```
