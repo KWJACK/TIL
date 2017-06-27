@@ -1,6 +1,8 @@
 
 ## mongo DB 설치
-https://velopert.com/457 에 자세히 나와있음. 생략
+
+https://velopert.com/436 설치
+https://velopert.com/457 컬렉션 생성
 http://www.w3ii.com/ko/mongodb/mongodb_data_modeling.html 한글 메뉴얼 페이지
 
 ## mongoDB 사용
