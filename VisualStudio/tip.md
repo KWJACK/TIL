@@ -8,6 +8,7 @@
 <kbd>Ctrl</kbd> + <kbd>Space</kbd> | 자동완성
 <kbd>Ctrl</kbd> + <kbd>k</kbd> + <kbd>c</kbd> | 블럭 친 부분 주석 처리
 <kbd>Ctrl</kbd> + <kbd>k</kbd> +<kbd>u</kbd> | 블럭 친 부분 주석 해제
+<kbd>Ctrl</kbd> + <kbd>k</kbd> +<kbd>f</kbd> | 인덴트 자동 정렬
 <kbd>Ctrl</kbd> + <kbd>l</kbd>| 한 줄 잘라 내기
 <kbd>Alt</kbd> + <kbd>Enter</kbd>| 속성창 열기
 
