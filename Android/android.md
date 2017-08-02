@@ -77,3 +77,40 @@ import java.net.InetAddress;
     /*your exception code*/
   }
   ```
+
+## TMapPOIItem listView
+  - ListView adapter에 연결하면 해당 데이터밖에 볼 수 없어서,
+  - ListView로 보여줄 adapter(String)를 더미로 설정. 실제 adapter(POIItem)는 인덱스로접근
+  - 이를 위해서 layout에 listview 두 개 선언, POIItem은 visible:gone으로 감춤
+
+  ```
+//변수 선언
+  ArrayAdapter<String> mAdapter;
+  ArrayAdapter<TMapPOIItem> mAdapterPOI;
+
+//리스트뷰와 연결
+  listView = (ListView) findViewById(R.id.listView);
+  listViewNULLPOI = (ListView)findViewById(R.id.listViewNULLPOI);
+  mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+  mAdapterPOI = new ArrayAdapter<TMapPOIItem>(this, android.R.layout.simple_list_item_1);
+  listView.setAdapter(mAdapter);
+  listViewNULLPOI.setAdapter(mAdapterPOI);
+
+//넣을 때는 String용 adapter와 POIItem용 adapter에 모두 삽입
+  for (TMapPOIItem poi : arrayList) {    
+       mAdapter.add(poi.getPOIName().toString()); //view 출력용(String)
+       mAdapterPOI.add(poi);                      //실제 데이터 접근용
+  }
+
+  ...
+
+//리스트 뷰 선택시 해당 view로 캐스팅해서 받지않고 index로 POIItem에 접근
+  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        //position으로 접근        
+          TMapPOIItem poi = mAdapterPOI.getItem(position);
+
+      }
+  });
+```
