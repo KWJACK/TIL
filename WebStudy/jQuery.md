@@ -84,10 +84,10 @@ $.ajax({
       type: 'POST',
       data: JSON.stringify(userinfo),
       contentType: 'application/json',
-      url: 'http://localhost:3000/join/login',
+      url: 'http://funfunbox.azurewebsites.net/join/login',
       success: function(data) {
           alert("로그인 완료");
-          location.href ="http://localhost:3000/board"; //redirect 기능
+          location.href ="http://funfunbox.azurewebsites.net/board"; //redirect 기능
       }
   });
 ```

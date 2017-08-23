@@ -3,7 +3,7 @@
 1. bitnami에서 mysql 서버가 running 중인지 확인
 2. HeidiSQL 실행
 3. `C:\Users\Coms7\Desktop\assigment2\joinForm` 에서 npm start실행
-4. `http://localhost:3000/board` 로 접속
+4. `http://funfunbox.azurewebsites.net/board` 로 접속
 
 ## 이미지 삽입하기
 - img폴더 생성
@@ -70,10 +70,10 @@ $.ajax({  //nodejs쪽에 POST형태로 ajax
       type: 'POST',
       data: JSON.stringify(password.serializeArray()),  //JSON 오브젝트 형태로 넘김
       contentType: 'application/json',
-      url: 'http://localhost:3000/board/deleteConfirm/<%=row.idx%>',  //URL표시는 완벽하게
+      url: 'http://funfunbox.azurewebsites.net/board/deleteConfirm/<%=row.idx%>',  //URL표시는 완벽하게
       success: function(data) { //redirect(success)시 해당 실행
           alert("삭제완료");
-          location.href ="http://localhost:3000/board";
+          location.href ="http://funfunbox.azurewebsites.net/board";
       }
   });
 ```
@@ -100,7 +100,7 @@ var dialog_newlogin = $("#dialog-newlogin").dialog({
       } });
 
 function confirmLogout(){
-  location.href ="http://localhost:3000/join/logout";//redirect
+  location.href ="http://funfunbox.azurewebsites.net/join/logout";//redirect
   $(this).dialog( "close" );//레이어창 종료
 }
 ```
@@ -114,7 +114,7 @@ $("#login").button().on("click", function(e){ //button().on()은 jquery의 css �
     $("#dialog-login").dialog("open");  //1에서 쓴 div 태그 이름
     e.preventDefault();
   }else{
-    location.href ="http://localhost:3000/join/logout";
+    location.href ="http://funfunbox.azurewebsites.net/join/logout";
   }
 });
 ```
@@ -130,10 +130,10 @@ $.ajax({
       type: 'POST',
       data: JSON.stringify(userinfo), //JSON형태로 넘김
       contentType: 'application/json',
-      url: 'http://localhost:3000/join/login',
+      url: 'http://funfunbox.azurewebsites.net/join/login',
       success: function(data) { //완료시 취할 행동 정의. 옵션으로 없어도 됨
           alert("로그인 완료");
-          location.href ="http://localhost:3000/board";
+          location.href ="http://funfunbox.azurewebsites.net/board";
       }
   });
 ```
@@ -188,10 +188,10 @@ $.ajax({
       type: 'POST',
       data: JSON.stringify(password),     //오브젝트 형태로 넘김
       contentType: 'application/json',
-      url: 'http://localhost:3000/board/deleteConfirm/<%=row.idx%>',  //보낼 위치
+      url: 'http://funfunbox.azurewebsites.net/board/deleteConfirm/<%=row.idx%>',  //보낼 위치
       success: function(data) {   // 정상 처리후 취할 액션
           alert("삭제완료");
-          location.href ="http://localhost:3000/board";
+          location.href ="http://funfunbox.azurewebsites.net/board";
       }
   });
 

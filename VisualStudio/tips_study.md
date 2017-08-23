@@ -101,7 +101,7 @@ D2D는 서버에서 실행하는 기법이 아님.
 
 
 ## 창을 라운드하게
-```
+```c++
 CRgn wnd_rgn; //region 디스플레이 + 영역 판단. 하지만 64k이상 영역 처리 힘듬
 POINT pos[360];
 	//sin은 라디안을 쓰므로 변환 필요
@@ -115,8 +115,8 @@ POINT pos[360];
 	wnd_rgn.CreatePolygonRgn(pos, 360, ALTERNATE);//점 단위로 다각형을 그림.
 	SetWindowRgn((HRGN)wnd_rgn, TRUE);
 	wnd_rgn.DeleteObject();
+```
 
-  ```
   ![1](http://i.imgur.com/1MGyInH.jpg)
 
 ## 투명화 예제
@@ -124,7 +124,7 @@ http://www.tipssoft.com/bulletin/board.php?bo_table=update&wr_id=48
 
 
 ## 테두리에 라운드 옵션
-```
+```cpp
 CRect r;
 	GetWindowRect(r);
 	wnd_rgn.CreateRoundRectRgn(r.left, r.top, r.right, r.bottom, 30, 30);//반지름이 5인 원을 만들겠다.

@@ -76,7 +76,18 @@ var bar = 0;
 배경이 끝날 때 ```으로 마무리
 
 **참고)** \'글자\'는 글자배경색을 지정함.
-
+**추가)** 배경 바꾸는 것은 소스코드 삽입에 자주 이용. 적용하고 싶은 언어를 써주면 하이라이팅
+example) ` ```js로 적용시 `
+```js
+var _storage = multer.diskStorage({
+  destination: (req,file, cb)=>{
+    cb(null, '/uploads');
+  },
+  filename: (req,file,cb)=>{
+    cb(null, file.originalname);
+  }
+})
+```
 
 ## 하이퍼링크
 

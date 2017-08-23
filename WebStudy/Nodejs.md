@@ -1,6 +1,6 @@
 # Node.js
 예제
-```
+```js
 const http = require('http');
 const hostname = '127.0.0.1';
 const port = 1337;
@@ -12,9 +12,10 @@ const server = http.createServer((req, res) => {    #람다식. => function 축�
 });
 
 server.listen(port, hostname, () => {   //node.js는 각 입력에 대해 라우트로 처리
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log("Server running at http://${hostname}:${port}");
 });
 ```
+
 이정도만 해도 쉽지만, 다른 사람들이 만들어 놓은 프레임웍을 사용하면 더 빠르게 웹서버를 만들 수 있다.
 
 ## NPM
@@ -38,7 +39,8 @@ app.js <-관습적인 main.c역할
 -필수 선언 요소
 `const express = require('express');`
 `var app = express();` : express를 app으로 사용가능
-```
+
+```js
 app.use(express.static('public'));//정적인 파일이 있는 경로 작성
                                   //이를 통해서 정적일 파일을 가져올 수 있다.
                                   //서버를 종료치 않고도 업데이트 가능
@@ -67,7 +69,8 @@ app.listen(3000, ()=>{
  - 필수 선언 요소
  `var bodyParser = require('body-parser');`
  `app.use(bodyParser.urlencoded({extended: false }));`
- ```
+
+ ```js
  app.post('/topic', (req, res)=>{
      var title = req.body.title; //body-parser 미들웨어를 통한 구현
      var description = req.body.description;
@@ -81,8 +84,8 @@ app.listen(3000, ()=>{
 - 필수 선언 요소
 `var multer = require('multer');`
 `var upload = multer({storage: _storage});`
-- 사
- ```
+
+ ```js
  var _storage = multer.diskStorage({
    destination: (req,file, cb)=>{
      cb(null, '/uploads');//디렉터리 지정
@@ -101,7 +104,8 @@ app.listen(3000, ()=>{
 
 ## 템플릿 엔진 pug(jade)
 express에서 html코드를 쉽게 작성하도록 돕는 템플릿 엔진
-```
+
+```js
 app.locals.pretty = true;           //pug로 만든 소스를 보기 좋게
 app.set('view engine', 'pug');      //pug 엔진 셋(npm install pug를 한 상태)
 app.set('views', './views');        //pug파일은 views 디렉터리에서 사용
@@ -190,7 +194,7 @@ madantory 옵션 : 내용 입력되지 않으면 db에 추가하지 않음
 
 ### passport + pkbdf2을 통한 로그인 AtoZ
 - session 추가
-  ```
+  ```js
   router.use(session({                 //express-session. session을 사용할 수 있도록 붙임
     secret: '1234DSFs@adf1234!@#$asd', //secret , session id로 넣을 값
     resave: false,                     // session을 계속 발생시키지 않도록
@@ -214,7 +218,7 @@ madantory 옵션 : 내용 입력되지 않으면 db에 추가하지 않음
     form에서 input name에서 `name=username`으로 input password는 `name=password`로 꼭 맞춰준다
 
 - passport.user에서 LocalStrategy로 암호화 and hasher로 복호화
-```
+```js
 passport.use(new LocalStrategy( //위에서 정의한 local을 미들웨어로 사용. 암호화
   function(username, password, done){//form에서 전달한 username, password를 받음
     var uname = username;
@@ -244,7 +248,7 @@ passport.use(new LocalStrategy( //위에서 정의한 local을 미들웨어로 �
 ));
 ```
 - serializeUser & deserializeUser 추가
-```
+```js
 passport.serializeUser((user, done)=>{//passport.use에서 done으로 준 객체를 첫번쨰 인자로 받음
   done(null, user.username);//session에 현재 접근한 user의 authId를 등록
 });
@@ -265,7 +269,7 @@ passport.deserializeUser((username, done)=>{  //serializeUser에서 session에 �
 
 
 - 인증 사용하기
-```
+```js
 router.post(
   '/login',
   passport.authenticate(
@@ -281,7 +285,7 @@ router.post(
 
 
 - session 로그아웃
-```
+```js
 router.get('/logout', (req,res)=>{
   console.log("join get logout");
   req.logout();//passport가 제공
