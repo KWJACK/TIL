@@ -1,117 +1,118 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+int max = 0;
+char *max_str;
+struct node {
+	char str[4];
+	int data;
+	struct node* left;
+	struct node* right;
+};
 
-typedef struct mem{
-	char *str;
-	int hit_num;//hit 된 갯수
-	struct mem *next;
-}MEM;
+struct node* root[26];
+struct node root2[26];
 
-
-typedef struct node{
-	char alpha;
-	char *star;//제일 빈도 수 높은 문자
-	int max;//알파벳에서 빈도수가 가장 높은 문자의 hit 수
-	MEM *m_mem; //head
-	struct node *next;
-} NODE;
-
-
-void check_mem(NODE* node, MEM* head, char *str){
-	MEM* temp;
-	for (temp->next; temp != head; temp = temp->next)
-	{
-		if(strcmp(temp->str, str)==0){
-			temp->hit_num++;//add oK
+struct node* create_node(char *str) {
+	struct node* temp = malloc(sizeof(struct node));
+	temp->left = NULL;
+	temp->right = NULL;
+	temp->data = 1;
+	strcpy(temp->str, str);
+	return temp;
+}
+void insert_node(struct node** root, char* str) {
+	struct node** p = root;
+	while (*p) {
+		if (strcmp((*p)->str, str) > 0)
+			p = &(*p)->left;
+		else if (strcmp((*p)->str, str)<0)
+			p = &(*p)->right;
+		else {
+			(*p)->data++;
 			return;
 		}
 	}
-	create_mem(node, str);
+	*p = create_node(str);
 }
 
-
-void create_mem(NODE* target, char *str){
-	MEM* new = malloc(sizeof(MEM));
-	new->str = str;
-	new->next = NULL;	
-	new->hit_num = 0;
-	insert_mem(target->m_mem, new);
+void in_order(struct node* p) {
+	if (p == NULL)return;
+	in_order(p->left);
+	if (max< p->data) {
+		max = p->data;
+		max_str = p->str;
+	}
+	else if (max == p->data) {
+		if (strcmp(p->str, max_str)>0)
+			max_str = p->str;
+	}
+	in_order(p->right);
+}
+int static compare(struct node* first, struct node* second) {
+	if (first->data < second->data)return 1;
+	else if (first->data == second->data) {
+		if (strcmp(first->str, second->str)>0) {
+			return 1;
+		}
+	}
+	return -1;
 }
 
-NODE* create_node(char alpha){
-	NODE* new = malloc(sizeof(NODE));
-	new->alpha=NULL;
-
-	MEM* mem = malloc(sizeof(mem));//m_mem head
-	mem->next=mem;
-	new->m_mem = mem;
-
-	return new;
+void post_order(struct node* p) {
+	if (p == NULL)return;
+	post_order(p->left);
+	post_order(p->right);
+	free(p);
 }
 
-void insert_node(NODE* s, NODE* temp)
-{
-	temp->next = s->next;
-	s->next = temp;
-}
-
-void insert_mem(MEM* s, MEM* temp)
-{
-	temp->next = s->next;
-	s->next = temp;
-}
-
-
-#define	STAND 97
-int main()
-{
-
-	freopen("./input.txt", "r", stdin); 
-	NODE* head = malloc(sizeof(NODE));
-	head->next= head;
-
-	char alpha_mem[26]={0,};
-
-	char data[256]={0,};
-
-	int n=0, i=0;
-
-	char *tab =" \t\n";	
-	char *token;
-
+int main() {
+	freopen("./input.txt", "r", stdin);
+	int i = 0, n = 0;
 	scanf("%d", &n);
 	getchar();
 
-	for(i=0;i<n;i++){
-		gets (data);
-		token = strtok(data, tab);
-		while (token != NULL) {
-			if(alpha_mem[token[0]-STAND]==0){
-				alpha_mem[token[0]-STAND]++;											
-				NODE* new = create_node(token[0]);
-				insert_node(&head, new);
+	char *token = NULL;
+	char *sep = " \t";
+	char data[256] = { 0, };
+	for (; i<n; i++) {
+		gets(data);
+		token = strtok(data, sep);
+		do {
+			if (root[token[0] - 'a'] == NULL) {
+				root[token[0] - 'a'] = create_node(token);
 			}
-
-			NODE* temp = head;
-
-			do {
-				check_mem(temp, temp->m_mem, token);
-				temp = temp->next;
-			}while(temp==head);
-
-			temp =head;
-			for (temp = head->next; temp != head ; temp = temp->next){
-				printf(temp->m_mem->hit_num);
-			}	
-
-			token = strtok(NULL, tab);
-		}
-
-		memset(data, 0, 256);
-		memset(alpha_mem,0,26);
-
+			else {
+				insert_node(&root[token[0] - 'a'], token);
+			}
+		} while (token = strtok(NULL, sep));
+		memset(data, 0, sizeof(data));
 	}
+
+	for (i = 0; i<26; i++) {
+		if (root[i] != NULL) {
+			in_order(root[i]);
+
+			root2[i].data = max;
+			strcpy(root2[i].str, max_str);
+
+			max = 0, max_str = NULL;
+		}
+	}
+
+	qsort(root2, 26, sizeof(struct node), compare);
+
+	for (i = 0; i<26; i++) {
+		if (root2[i].data != 0) {
+			printf("%s : %d\n", root2[i].str, root2[i].data);
+		}
+	}
+
+	for (i = 0; i<26; i++) {
+		if (root[i] != NULL) {
+			post_order(root[i]);
+		}
+	}
+
 	return 0;
 }
-
